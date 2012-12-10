@@ -8,7 +8,7 @@
 					<div class="span6">
 						<h2>Descargar Framework</h2>
 						<p><strong>Instalaci&#243;n:</strong> una forma simple de instalacion, copiar unicamente los archivos al localhost raiz y empezar a programar.</p>
-						<p><a class="btn btn-large btn-primary" href="https://github.com/NeuralFramework/Alpha_Development/archive/master.zip">Descargar en Versi&#243;n ZIP</a></p>
+						<p><a class="btn btn-large btn-primary" href="https://github.com/NeuralFramework/Neural/archive/master.zip">Descargar en Versi&#243;n ZIP</a></p>
 					</div>
 					<div class="span6">
 						<h2>C&#243;digo General</h2>
