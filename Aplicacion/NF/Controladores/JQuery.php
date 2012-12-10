@@ -141,4 +141,9 @@
 		
 			$this->Vista->GenerarVista('JQuery/Ajax/index', 'JQUERY');
 		}
+		
+		public function AdminScript() {
+			
+			$this->Vista->GenerarVista('JQuery/AdminScript/AdminScript', 'JQUERY');
+		}
 	}

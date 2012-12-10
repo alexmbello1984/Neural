@@ -13,10 +13,10 @@
 	#
 	# #####################################################################################
 	
-	class NeuralScriptAdmin {
+	class NeuralScriptAdministrador {
 		
 		/**
-		 * Factory NeuralScriptAdmin::OrganizarScript($Persistencia = false, $Script = false, $Aplicacion = 'DEFAULT')
+		 * NeuralScriptAdmin::OrganizarScript($Persistencia = false, $Script = false, $Aplicacion = 'DEFAULT')
 		 * 
 		 * Regla: Organiza e implementa los diferentes archivos publicos y organiza script js
 		 * @param $Persistencia: array asociativo con los archivos que deben ser persistentes

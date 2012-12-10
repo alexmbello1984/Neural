@@ -1,7 +1,7 @@
 	<html>
 		<head>
 			<title>.:: Requerido ::.</title>
-			<?php echo NeuralScriptAdmin::OrganizarScript(array('JS' => array('JQUERY', 'VALIDATE')), $Script = (isset($this->Script)) ? $this->Script : false); ?>
+			<?php echo NeuralScriptAdministrador::OrganizarScript(array('JS' => array('JQUERY', 'VALIDATE')), $Script = (isset($this->Script)) ? $this->Script : false); ?>
 <script type="text/javascript">
 	$.validator.setDefaults({
 		submitHandler: function() { ''; }

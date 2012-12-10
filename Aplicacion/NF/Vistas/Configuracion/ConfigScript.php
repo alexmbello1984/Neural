@@ -66,4 +66,6 @@ MI_APLICACION:
 		
 		<h5>LOADER</h5>
 		<p>Marcador de configuración de imagen loader de espera de las acciones de <strong>Ajax</strong></p>
+		
+		<div class="alert alert-info"><strong>.:: Este archivo de configuración se aplica directamente con el Administrador de Script's ::.s</strong></div>
 	</section>
