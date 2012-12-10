@@ -25,4 +25,9 @@
 			
 			$this->Vista->GenerarVista('Configuracion/ConfigCorreo', 'CONFIGURACION');
 		}
+		
+		public function ConfiguracionScript() {
+			
+			$this->Vista->GenerarVista('Configuracion/ConfigScript', 'CONFIGURACION');
+		}
 	}
