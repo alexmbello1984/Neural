@@ -12,7 +12,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="https://github.com/neuralframework" target="_blank">Neural Framework</a>
+          <a class="brand" href="https://github.com/NeuralFramework" target="_blank">Neural Framework</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
               <li class="<?php echo AyudasMPActive::Active('Index'); ?>">

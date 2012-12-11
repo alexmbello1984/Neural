@@ -44,4 +44,9 @@
 			
 			$this->Vista->GenerarVista('Documentacion/Exportar/Exportar', 'DOCUMENTACION');
 		}
+		
+		public function CacheSimple() {
+			
+			$this->Vista->GenerarVista('Documentacion/CacheSimple/CacheSimple', 'DOCUMENTACION');
+		}
 	}

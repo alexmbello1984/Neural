@@ -10,7 +10,7 @@
 			<li><a href="<?php echo NeuralRutasApp::RutaURL('Documentacion/Encriptacion'); ?>"><i class="icon-chevron-right"></i> Encriptación</a></li>
 			<li><a href="<?php echo NeuralRutasApp::RutaURL('Documentacion/Correo'); ?>"><i class="icon-chevron-right"></i> Correo</a></li>
 			<li><a href="<?php echo NeuralRutasApp::RutaURL('Documentacion/Exportar'); ?>"><i class="icon-chevron-right"></i> Exportar Excel</a></li>
-			
+			<li><a href="<?php echo NeuralRutasApp::RutaURL('Documentacion/CacheSimple'); ?>"><i class="icon-chevron-right"></i> Cache Simple</a></li>
         </ul>
       </div>
       <div class="span9">
