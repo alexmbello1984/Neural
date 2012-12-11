@@ -31,6 +31,7 @@
 	
 	//Cargamos las librerias de encriptacion
 	$CargarNucleo->ObtenerLibreria('LIBRERIAS', 'Encriptacion/ProcesoEncriptacion');
+	$CargarNucleo->ObtenerLibreria('LIBRERIAS', 'Cache/NeuralCacheSimple');
 	
 	//Cargamos las Librerias del Framework
 	$CargarNucleo->ObtenerLibreria('LIBRERIAS', 'Neural/SysMisNeural');
