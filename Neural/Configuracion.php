@@ -36,6 +36,17 @@
 	define('__SysNeuralFileRootAplicacion__', dirname(__DIR__).'/Aplicacion/');
 	
 	/**
+	 * Ruta de Acceso a Carpeta de Cache
+	 * 
+	 * Se utiliza la opcion dirname(__DIR__) para tomar la ruta default de instalacion.
+	 * Se puede reemplazar por la direccion fisica
+	 * 
+	 * @example Windows [C:\www\htdocs\Aplicacion\]
+	 * @example Linux [/opt/lampp/htdocs/Aplicacion/] 
+	 * */
+	define('__SysNeuralFileRootCache__', __SysNeuralFileRootAplicacion__.'Cache/');
+	
+	/**
 	 * Ruta de Acceso de Separador de Doctrine 2 DBAL
 	 * 
 	 * Necesario para generar el enrutamiento base de doctrine 2
@@ -55,6 +66,22 @@
 	  * 
 	  * */
 	  define('__SysNeuralFileRootNeuralLibrerias__', dirname(__DIR__).'/Neural/Librerias/');
+	  
+	  /**
+	  * Sistema de Cache simple para procesos del CORE 
+	  * de Neural Framework
+	  * Opciones soportadas HABILITADO - DESHABILITADO
+	  * 
+	  * */
+	  define('__SysNeuralCoreCache__', 'DESHABILITADO');
+	  
+	  /**
+	  * Sistema de Cache simple para procesos del CORE 
+	  * de Neural Framework
+	  * Tiempo de expiracion en segundos
+	  * 
+	  * */
+	  define('__SysNeuralCoreCacheExpiracion__', 259200);
 	  
 	  /**
 	   * Configuración de la zona horaria del servidor

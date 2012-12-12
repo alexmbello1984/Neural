@@ -40,11 +40,38 @@
 		 **/
 		public static function CargarArchivoYAMLAplicacion($Ruta) {
 			
-			//Leemos el archivo de configuracion de accesos y lo convertimos en un array
-			$YML = new Spyc;
-			$Array = $YML->YAMLLoad(__SysNeuralFileRootAplicacion__.$Ruta);
-			
-			return $Array;
+			//Validacion de Activacion de Cache
+			if(__SysNeuralCoreCache__ == 'HABILITADO')
+			{
+				$RutaArray = explode('/', $Ruta);
+				$AplicacionArray = explode('.', $RutaArray[1]);
+				$Llave = md5($AplicacionArray[0]);
+				
+				$Cache = new NeuralCacheSimple('NeuralNFZyosSetUp', $Llave);
+				$Cache->DefinirTiempoExpiracion(__SysNeuralCoreCacheExpiracion__);
+				
+				if($Cache->ExistenciaCache(base64_encode($Llave)))
+				{
+					return $Cache->ObtenerCache(base64_encode($Llave));
+				}
+				else
+				{
+					//Leemos el archivo de configuracion de accesos y lo convertimos en un array
+					$YML = new Spyc;
+					$Array = $YML->YAMLLoad(__SysNeuralFileRootAplicacion__.$Ruta);
+					$Cache->GuardarCache($Llave,$Array);
+					
+					return $Array;
+				}
+			}
+			else
+			{
+				//Leemos el archivo de configuracion de accesos y lo convertimos en un array
+				$YML = new Spyc;
+				$Array = $YML->YAMLLoad(__SysNeuralFileRootAplicacion__.$Ruta);
+				
+				return $Array;
+			}
 		}
 		
 		/**
