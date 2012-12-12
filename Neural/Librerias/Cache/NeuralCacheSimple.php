@@ -40,7 +40,7 @@
 			}
 			else {
 				$URL = SysMisNeural::LeerURLModReWrite();
-				$this->AplicacionCache = ($URL[0]!=='') ? $URL[0].'/' : 'Default/';
+				$this->AplicacionCache = $AplicacionCache = ($URL[0]!=='') ? $URL[0].'/' : 'Default/';
 			}
 			
 			if($Carpeta == true) {
