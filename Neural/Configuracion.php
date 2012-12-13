@@ -88,7 +88,7 @@
 	   * Puede consultar listado de zonas soportadas por php
 	   * http://www.php.net/manual/es/timezones.php
 	   * 
-	   */
+	   * */
 	  date_default_timezone_set("America/Bogota");
 	  
 	  /**
@@ -97,5 +97,14 @@
 	   * http://www.php.net/manual/es/function.set-time-limit.php
 	   * El valor por omision es 30, pero si desea un tiempo infinito puede ingresar cero (0)
 	   * 
-	   */
+	   * */
 	  set_time_limit (30);
+	  
+	  /**
+	   * Configuracion de memoria asignada a la ejecucion de un script
+	   * El valor por omision es 128 para mayor informacion
+	   * puede ingresar a la documentacion oficial
+	   * http://php.net/manual/es/ini.core.php#ini.memory-limit
+	   * 
+	   * */
+	  ini_set('memory_limit', '128M');

@@ -18,4 +18,17 @@
 		function __Construct() {
 			
 		}
+		
+		/**
+		 * TiempoMaximoEjecucion($Valor = 0)
+		 * 
+		 * Se aumenta el tiempo maximo del script
+		 * por defecto su tiempo es de 30
+		 * @param $Valor: Valor por defecto 0 (Infinito)
+		 * 
+		 * */
+		public function TiempoMaximoEjecucion($Valor) {
+			
+			ini_set('max_execution_time', $Valor);
+		}
 	}
