@@ -31,7 +31,7 @@
 					
 					<div class="bs-docs-example">
 						<code>Vista</code>
-						<pre class="prettyprint linenums" style="font-size: 11px;"><ol class="linenums"><li class="L0">&lt;html&gt;</li><li class="L1">	&lt;head&gt;</li><li class="L2">		&lt;title&gt; .:: Vista de la Aplicación :: &lt;/title&gt;</li><li class="L2">&lt;?php echo NeuralScriptAdmin::OrganizarScript(false, $Datos = (isset($this->Script) ? $this->Script : false)); ?&gt;</li><li class="L3">	&lt;/head&gt;</li><li class="L4">	&lt;body&gt;</li><li class="L4">	&lt;/body&gt;</li><li class="L5">&lt;/html&gt;</li></ol></pre>
+						<pre class="prettyprint linenums" style="font-size: 11px;"><ol class="linenums"><li class="L0">&lt;html&gt;</li><li class="L1">	&lt;head&gt;</li><li class="L2">		&lt;title&gt; .:: Vista de la Aplicación :: &lt;/title&gt;</li><li class="L2">&lt;?php echo NeuralScriptAdmin::OrganizarScript(false, $Datos = (!isset($this->Script) ? false : $this->Script, 'MI_APLICACION')); ?&gt;</li><li class="L3">	&lt;/head&gt;</li><li class="L4">	&lt;body&gt;</li><li class="L4">	&lt;/body&gt;</li><li class="L5">&lt;/html&gt;</li></ol></pre>
 					</div>
 					
 					<br /><br />

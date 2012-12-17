@@ -28,45 +28,139 @@
 		public static function OrganizarScript($Persistencia = false, $Script = false, $Aplicacion = 'DEFAULT') {
 			
 			$Librerias = SysMisNeural::CargarArchivoYAMLAplicacion('Configuracion/ConfiguracionScripts.yaml');
+			$AplicacionValidada = (array_key_exists($Aplicacion, $Librerias)) ? $Aplicacion : 'DEFAULT';
 			
 			if(is_array($Persistencia))
 			{
-				$Constructor[] = self::ConstructorPersistente($Persistencia, $Librerias[$Aplicacion]);
+				$Constructor[] = self::ConstructorPersistente($Persistencia, $Librerias[$AplicacionValidada]);
 			}
-						
+			
 			if(is_array($Script))
 			{
-				$Constructor[] = self::OrganizarArrayScript($Script, $Librerias[$Aplicacion], self::OrganizarArrayPersistencia($Persistencia));
+				$Constructor[] = self::ConstructorScript($Script, $Librerias[$AplicacionValidada], $Persistencia);
 			}
 			
-			unset($Persistencia, $Script);
+			unset($Librerias, $AplicacionValidada);
 			
-			if(isset($Constructor))
+			if(is_array($Persistencia) == true OR is_array($Script) == true)
 			{
 				return implode("\n", $Constructor);
 			}
 		}
 		
-		private function OrganizarArrayPersistencia($Array) {
+		private function ConstructorScript($Script, $Aplicacion, $Persistencia = false) {
 			
-			if(is_array($Array))
+			if(is_array($Persistencia))
 			{
-				foreach ($Array AS $Llave => $Valor)
+				$ScriptOrganizado = self::OrganizarDatosScript($Script);
+				$ArrayPersistencia = self::OrganizarArray($Persistencia);
+				
+				foreach ($ScriptOrganizado AS $Llave => $Valor)
 				{
 					if($Llave == 'JS')
 					{
-						$Cantidad = count($Valor);
-						for ($i=0; $i<$Cantidad; $i++)
+						if(array_key_exists($Llave, $ArrayPersistencia))
 						{
-							$Datos['JS'][$Valor[$i]] = $Valor[$i];
+							foreach ($Valor AS $LlaveJS => $ValorJS)
+							{
+								if(!array_key_exists($ValorJS, $ArrayPersistencia['JS']))
+								{
+									$Datos[] = '<script type="text/javascript" src="'.NeuralRutasBase::RutaBase($Aplicacion['JS'][$ValorJS]).'"></script>';
+								}
+							}
+						}
+						else
+						{
+							foreach ($Valor AS $LlaveJS => $ValorJS)
+							{
+								$Datos[] = '<script type="text/javascript" src="'.NeuralRutasBase::RutaBase($Aplicacion['JS'][$ValorJS]).'"></script>';
+							}
 						}
 					}
 					elseif($Llave == 'CSS')
 					{
-						$Cantidad = count($Valor);
-						for ($i=0; $i<$Cantidad; $i++)
+						if(array_key_exists($Llave, $ArrayPersistencia))
 						{
-							$Datos['CSS'][$Valor[$i]] = $Valor[$i];
+							foreach ($Valor AS $LlaveCSS => $ValorCSS)
+							{
+								if(!array_key_exists($ValorCSS, $ArrayPersistencia['CSS']))
+								{
+									$Datos[] = '<link href="'.NeuralRutasBase::RutaBase($Aplicacion['CSS'][$ValorCSS]).'" rel="stylesheet">';
+								}
+							}
+						}
+						else
+						{
+							foreach ($Valor AS $LlaveCSS => $ValorCSS)
+							{
+								$Datos[] = '<link href="'.NeuralRutasBase::RutaBase($Aplicacion['CSS'][$ValorCSS]).'" rel="stylesheet">';
+							}
+						}
+					}
+				}
+				
+				$Datos[] = implode("\n", $ScriptOrganizado['SCRIPT']);
+				
+				unset($Script, $ScriptOrganizado);
+				
+				return implode("\n", $Datos);
+			}
+			else
+			{
+				$ScriptOrganizado = self::OrganizarDatosScript($Script);
+				
+				foreach ($ScriptOrganizado AS $Llave => $Valor)
+				{
+					if($Llave == 'JS')
+					{
+						foreach ($Valor AS $LlaveJS => $ValorJS)
+						{
+							$Datos[] = '<script type="text/javascript" src="'.NeuralRutasBase::RutaBase($Aplicacion['JS'][$ValorJS]).'"></script>';
+						}
+					}
+					elseif($Llave == 'CSS')
+					{
+						foreach ($Valor AS $LlaveCSS => $ValorCSS)
+						{
+							$Datos[] = '<link href="'.NeuralRutasBase::RutaBase($Aplicacion['CSS'][$ValorCSS]).'" rel="stylesheet">';
+						}
+					}
+				}
+				
+				$Datos[] = implode("\n", $ScriptOrganizado['SCRIPT']);
+				
+				unset($Script, $ScriptOrganizado);
+				
+				return implode("\n", $Datos);
+			}
+		}
+		
+		
+		private function OrganizarArray($Array) {
+			
+			if(is_array($Array))
+			{
+				foreach($Array AS $Llave => $Valor)
+				{
+					if($Llave == 'JS')
+					{
+						foreach($Valor AS $LlaveJS => $ValorJS)
+						{
+							$Datos['JS'][$ValorJS] = $ValorJS;
+						}
+					}
+					elseif($Llave == 'CSS')
+					{
+						foreach($Valor AS $LlaveCSS => $ValorCSS)
+						{
+							$Datos['CSS'][$ValorCSS] = $ValorCSS;
+						}
+					}
+					else
+					{
+						foreach($Valor AS $LlaveNV => $ValorNV)
+						{
+							$Datos['NO_VALIDO'][$ValorNV] = 'OPCIONES NO VALIDAS';
 						}
 					}
 				}
@@ -77,151 +171,82 @@
 			}
 			else
 			{
-				return array('JS' => array(), 'CSS' => array());
+				unset($Array);
+				
+				return array();
 			}
 		}
-		
-		private function OrganizarArrayScript($Array, $Librerias, $ArrayValidacion) {
+
+		private function OrganizarDatosScript($Script) {
 			
-			$Cantidad = count($Array);
-			
+			$Cantidad = count($Script);
 			for ($i=0; $i<$Cantidad; $i++)
 			{
-				foreach ($Array[$i] AS $Llave => $Valor)
+				foreach($Script[$i] AS $Llave => $Valor)
 				{
-					if($Llave=='JS')
+					if($Llave == 'JS')
 					{
-						foreach ($Valor AS $LlaveArray => $Valorarray)
+						foreach($Valor AS $LlaveJS => $ValorJS)
 						{
-							if(!array_key_exists($Valorarray, $ArrayValidacion['JS']))
-							{
-								$Datos['JS'][$Valorarray] = $Valorarray;
-							}
+							$Datos['JS'][$LlaveJS] = $ValorJS;
 						}
 					}
-					elseif($Llave=='CSS')
+					elseif($Llave == 'CSS')
 					{
-						foreach ($Valor AS $LlaveArray => $Valorarray)
+						foreach($Valor AS $LlaveCSS => $ValorCSS)
 						{
-							if(!array_key_exists($Valorarray, $ArrayValidacion['CSS']))
-							{
-								$Datos['CSS'][$Valorarray] = $Valorarray;
-							}
+							$Datos['CSS'][$LlaveCSS] = $ValorCSS;
 						}
 					}
-					elseif($Llave=='SCRIPT')
+					elseif($Llave == 'SCRIPT')
 					{
 						$Datos['SCRIPT'][] = $Valor;
 					}
 				}
 			}
 			
-			unset($Array, $Cantidad, $ArrayValidacion);
+			unset($Cantidad, $Llave, $Valor);
 			
-			return self::ConstructorOrgScript($Datos, $Librerias);
+			return $Datos;
 		}
 		
-		private function ConstructorOrgScript($Array, $Librerias) {
+		private function ConstructorPersistente($Persistencia, $Librerias) {
 			
-			foreach ($Array AS $Llave => $Valor)
+			foreach ($Persistencia AS $Llave => $Valor)
 			{
 				if($Llave == 'JS')
 				{
-					$Datos[] = self::ConstructorScriptJS($Valor, $Librerias);
+					foreach ($Valor AS $LlaveJS => $ValorJS)
+					{
+						if(array_key_exists($ValorJS, $Librerias['JS']))
+						{
+							$Datos[] = '<script type="text/javascript" src="'.NeuralRutasBase::RutaBase($Librerias['JS'][$ValorJS]).'"></script>';
+						}
+						else
+						{
+							$Datos[] = '<!-- Libreria JS '.$ValorJS.' No existe en la Configuracion de Scripts -->';
+						}
+					}
 				}
 				elseif($Llave == 'CSS')
 				{
-					$Datos[] = self::ConstructorScriptCSS($Valor, $Librerias);
+					foreach ($Valor AS $LlaveCSS => $ValorCSS)
+					{
+						if(array_key_exists($ValorCSS, $Librerias['CSS']))
+						{
+							$Datos[] = '<link href="'.NeuralRutasBase::RutaBase($Librerias['CSS'][$ValorCSS]).'" rel="stylesheet">';
+						}
+						else
+						{
+							$Datos[] = '<!-- Libreria CSS '.$ValorCSS.' No existe en la Configuracion de Scripts -->';
+						}
+					}
 				}
-				elseif($Llave == 'SCRIPT')
-				{
-					$Datos[] = self::ConstructorOrganizarScriptScript($Valor);
-				}
 			}
 			
-			unset($Array, $Librerias);
+			unset($Persistencia, $Librerias);
 			
 			return implode("\n", $Datos);
 		}
 		
-		private function ConstructorOrganizarScriptScript($Array) {
-			
-			foreach ($Array AS $Llave => $Valor)
-			{
-				$Datos[] = $Valor;
-			}
-			
-			unset($Array);
-			
-			return implode("\n", $Datos);
-		}
-		
-		private function ConstructorScriptJS($Array, $Librerias) {
-			
-			foreach ($Array AS $Llave => $Valor)
-			{
-				$Datos[] = $Valor;
-			}
-			
-			unset($Array);
-			
-			return self::ConstructorJS($Datos, $Librerias);
-		}
-		
-		private function ConstructorScriptCSS($Array, $Librerias) {
-			
-			foreach ($Array AS $Llave => $Valor)
-			{
-				$Datos[] = $Valor;
-			}
-			
-			unset($Array);
-			
-			return self::ConstructorCSS($Datos, $Librerias);
-		}
-		
-		private function ConstructorPersistente($Array, $ArrayLibrerias) {
-			
-			foreach ($Array AS $Llave => $Valor)
-			{
-				if($Llave == 'JS')
-					$Datos[] = self::ConstructorJS($Valor, $ArrayLibrerias);
-				elseif($Llave == 'CSS')
-					$Datos[] = self::ConstructorCSS($Valor, $ArrayLibrerias);
-			}
-			
-			unset($Array, $ArrayLibrerias);
-			
-			return implode("\n", $Datos);
-		}
-		
-		private function ConstructorJS($Array, $ArrayLibrerias) {
-			
-			$Cantidad = count($Array);
-			
-			for ($i=0; $i<$Cantidad; $i++)
-			{
-				$Libreria = $Array[$i];
-				$Constructor[] = '<script type="text/javascript" src="'.NeuralRutasBase::RutaBase($ArrayLibrerias['JS'][$Libreria]).'"></script>';
-			}
-			
-			unset($Cantidad, $Array, $ArrayLibrerias);
-			
-			return implode("\n", $Constructor);
-		}
-		
-		private function ConstructorCSS($Array, $ArrayLibrerias) {
-			
-			$Cantidad = count($Array);
-			
-			for ($i=0; $i<$Cantidad; $i++)
-			{
-				$Libreria = $Array[$i];
-				$Constructor[] = '<link href="'.NeuralRutasBase::RutaBase($ArrayLibrerias['CSS'][$Libreria]).'" rel="stylesheet">';
-			}
-			
-			unset($Cantidad, $Array, $ArrayLibrerias);
-			
-			return implode("\n", $Constructor);
-		}
 	}
