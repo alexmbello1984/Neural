@@ -18,6 +18,9 @@
               <li class="<?php echo AyudasMPActive::Active('Index'); ?>">
                 <a href="<?php echo NeuralRutasApp::RutaURL('Index'); ?>">Inicio</a>
               </li>
+              <li class="<?php echo AyudasMPActive::Active('Requerimientos'); ?>">
+                <a href="<?php echo NeuralRutasApp::RutaURL('Requerimientos'); ?>">Requerimientos</a>
+              </li>
               <li class="<?php echo AyudasMPActive::Active('Configuracion'); ?>">
                 <a href="<?php echo NeuralRutasApp::RutaURL('Configuracion'); ?>">Configuracion</a>
               </li>
