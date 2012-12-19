@@ -5,13 +5,13 @@
 ##
 
 ##
-#Mostramos los errores correspondientes
+#	Mostramos los errores correspondientes
 ##
 php_flag display_errors on
 php_value error_reporting 9999
 
 ##
-#Generamos la modificacion del URL para el manejo del MVC
+#	Generamos la modificacion del URL para el manejo del MVC
 ##
 RewriteEngine On
 

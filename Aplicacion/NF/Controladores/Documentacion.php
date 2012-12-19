@@ -49,4 +49,9 @@
 			
 			$this->Vista->GenerarVista('Documentacion/CacheSimple/CacheSimple', 'DOCUMENTACION');
 		}
+		
+		public function Sesiones() {
+			
+			$this->Vista->GenerarVista('Documentacion/Sesiones/Sesiones', 'DOCUMENTACION');
+		}
 	}

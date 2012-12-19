@@ -54,6 +54,7 @@
 	$CargarNucleo->ObtenerLibreria('LIBRERIAS', 'MVC/Controlador');
 	$CargarNucleo->ObtenerLibreria('LIBRERIAS', 'MVC/Modelo');
 	$CargarNucleo->ObtenerLibreria('LIBRERIAS', 'MVC/Vista');
+	$CargarNucleo->ObtenerLibreria('LIBRERIAS', 'Sesiones/NeuralSesiones');
 	
 	//Generamos la carga de las librerias
 	$CargarNucleo->CargarLibrerias();
