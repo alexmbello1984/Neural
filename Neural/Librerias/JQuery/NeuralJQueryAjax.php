@@ -151,7 +151,7 @@
 			{
 				return array(
 						'JS' => array('JQUERY'), 
-						'SCRIPT' => self::Constructor('CargarContenidoAutomarico', array('IDCargar' => $IDCargar, 'URL' => $URL))
+						'SCRIPT' => self::Constructor('CargarContenidoAutomatico', array('IDCargar' => $IDCargar, 'URL' => $URL))
 					);
 			}
 			else
