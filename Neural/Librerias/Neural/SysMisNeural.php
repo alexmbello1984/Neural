@@ -214,8 +214,21 @@
 		}
 		
 		/**
-		 * SysMisNeural
+		 * SysMisNeural::ListarOrganizarMetodosClase($Clase);
+		 * 
+		 * Lista y organiza llave valor un array con los metodos publicos de la clase
 		**/
+		public static function ListarOrganizarMetodosClase($Clase) {
+			
+			$Array = get_class_methods($Clase);
+			
+			foreach ($Array AS $Llave => $Valor) {
+				
+				$Datos[$Valor] = $Valor;
+			}
+			
+			return $Datos;
+		}
 		
 		/**
 		 * SysMisNeural

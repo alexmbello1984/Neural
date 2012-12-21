@@ -24,10 +24,10 @@
 			//Leemos el archivo de configuracion de accesos y lo convertimos en un array
 			$Array = SysMisNeural::CargarArchivoYAMLAplicacion('Configuracion/ConfiguracionAcceso.yaml');
 			
-			//generamos la validacion si se establecio una aplicacion en la URL
+			//Validamos si hay una aplicacion seleccionada
 			if(!empty($Url[0]))
 			{
-				//Validamos si existe la aplicacion correspondiente
+				//Validamos si la aplicacion existe
 				if(array_key_exists(mb_strtoupper($Url[0]), $Array['APLICACIONES']))
 				{
 					//Generamos las rutas de accesos
@@ -36,123 +36,126 @@
 					$Ayudas = $Array['APLICACIONES'][mb_strtoupper($Url[0])]['AYUDAS'];
 					$Controladores = $Array['APLICACIONES'][mb_strtoupper($Url[0])]['CONTROLADORES'];
 					
-					//Cargamos las Configuraciones de las ayudas y configuraciones aplicacion
-					SysMisNeural::IncluirAyudasConfiguracionesAplicacion($Carpeta, $Configuraciones, $Ayudas);
-					
-					//generamos la validacion si se establecio un Controlador en la URL
-					if(!empty($Url[1]))
+					//Validamos que exista la carpeta correspondiente
+					if(is_dir(__SysNeuralFileRootAplicacion__.$Carpeta))
 					{
-						//Generamos la ruta del Controlador
-						$Archivo = SysMisNeural::GenerarRutasArchivoAplicacion($Carpeta, $Controladores, $Url[1].'.php');
+						//Cargamos las Configuraciones de las ayudas y configuraciones aplicacion
+						SysMisNeural::IncluirAyudasConfiguracionesAplicacion($Carpeta, $Configuraciones, $Ayudas);
 						
-						//Validamos si el controlador existe
-						if(file_exists($Archivo))
+						//Validamos si se ha ingresado un Controlador
+						if(isset($Url[1]) == true AND empty($Url[1]) != true)
 						{
-							//Validamos si se establecio un controlador
-							if(!empty($Url[2]))
+							//Generamos la ruta del Controlador
+							$Archivo = SysMisNeural::GenerarRutasArchivoAplicacion($Carpeta, $Controladores, $Url[1].'.php');
+							
+							//Validamos si existe el controlador correspondiente
+							if(file_exists($Archivo))
 							{
-								//generamos el proceso de control para no ingresar metodos magicos y globales de construccion y destruccion
-								if(mb_strtoupper($Url[2]) <> '__CONSTRUCT' AND mb_strtoupper($Url[2]) <> '__DESTRUCT')
+								//Incluimos el archivo controlador correspondiente
+								require $Archivo;
+								
+								//Validamos si tenemos un metodo
+								if(isset($Url[2]) == true AND empty($Url[2]) != true)
 								{
-									//Generamos el require del controlador correspondiente
-									require $Archivo;
-									
-									//Validamos si el metodo existe dentro de la clase del controlador
+									//Validamos si Existe el Metodo correspondiente
 									if(method_exists($Url[1], $Url[2]))
 									{
-										//Validamos si se envian variables en el url
-										if(!empty($Url[3]))
+										//Validamos que el metodo exista y sea publico
+										if(array_key_exists($Url[2], SysMisNeural::ListarOrganizarMetodosClase($Url[1])))
 										{
-											//Generamos la validacion de datos ingresados por URL datos hasta 6 Variables
-											if(isset($Url[8]))
+											//Validamos que se haya enviado un parametro
+											if(isset($Url[3]) == true AND empty($Url[3]) != true)
 											{
 												//Cargamos el Controlador correspondiente
 												$Controlador = new $Url[1];
 												$Controlador->CargarModelo($Url[1]);
-												$Controlador->$Url[2]($Url[3], $Url[4], $Url[5], $Url[6], $Url[7], $Url[8]);
-											}
-											elseif(isset($Url[7]))
-											{
-												//Cargamos el Controlador correspondiente
-												$Controlador = new $Url[1];
-												$Controlador->CargarModelo($Url[1]);
-												$Controlador->$Url[2]($Url[3], $Url[4], $Url[5], $Url[6], $Url[7]);
-											}
-											elseif(isset($Url[6]))
-											{
-												//Cargamos el Controlador correspondiente
-												$Controlador = new $Url[1];
-												$Controlador->CargarModelo($Url[1]);
-												$Controlador->$Url[2]($Url[3], $Url[4], $Url[5], $Url[6]);
-											}
-											elseif(isset($Url[5]))
-											{
-												//Cargamos el Controlador correspondiente
-												$Controlador = new $Url[1];
-												$Controlador->CargarModelo($Url[1]);
-												$Controlador->$Url[2]($Url[3], $Url[4], $Url[5]);
-											}
-											elseif(isset($Url[4]))
-											{
-												//Cargamos el Controlador correspondiente
-												$Controlador = new $Url[1];
-												$Controlador->CargarModelo($Url[1]);
-												$Controlador->$Url[2]($Url[3], $Url[4]);
+												
+												$Cantidad = count($Url)-1;
+												
+												for ($i=3; $i<=$Cantidad; $i++)
+												{
+													$Datos[] = '$Url['.$i.']';
+												}
+												
+												$Lista = implode(', ', $Datos);
+												
+												eval("\$Controlador->\$Url[2](".$Lista.");");
+												
+												unset($Cantidad, $Datos, $Lista);
 											}
 											else
 											{
 												//Cargamos el Controlador correspondiente
 												$Controlador = new $Url[1];
 												$Controlador->CargarModelo($Url[1]);
-												$Controlador->$Url[2]($Url[3]);
+												$Controlador->$Url[2]();
 											}
 										}
 										else
 										{
-											//Cargamos el Controlador correspondiente
-											$Controlador = new $Url[1];
-											$Controlador->CargarModelo($Url[1]);
-											$Controlador->$Url[2]();
+											//Indicamos el error de no encontrarse el Metodo correspondiente
+											require __SysNeuralFileRootNeuralMensajesError__.'NoMetodo.php';
 										}
 									}
 									else
 									{
-										$this->ErrorAplicacion();
+										//Generamos el require para incluir el controlador correspondiente
+										require SysMisNeural::GenerarRutasArchivoAplicacion($Carpeta, $Controladores, 'Error.php');
+										
+										//No existe el metodo generamos el error correspondiente
+										$Controlador = new Error;
+										$Controlador->CargarModelo('Error');
+										$Controlador->Index();
 									}
+									
 								}
 								else
 								{
-									$this->ErrorAplicacion();
+									//Instanciamos y procesamos los procedimientos correspondientes
+									$Controlador = new $Url[1];
+									$Controlador->CargarModelo('Index');
+									$Controlador->Index();
 								}
 							}
 							else
 							{
-								//Generamos el require del controlador correspondiente
-								require $Archivo;
-								
-								//Cargamos el Controlador correspondiente
-								$Controlador = new $Url[1];
-								$Controlador->CargarModelo($Url[1]);
-								$Controlador->Index();
+								//Indicamos el error de no encontrarse el controlador
+								require __SysNeuralFileRootNeuralMensajesError__.'NoControlador.php';
 							}
 						}
 						else
 						{
-							$this->ErrorAplicacion();
+							//Generamos el nombre del controlador correspondiente
+							$Archivo = SysMisNeural::GenerarRutasArchivoAplicacion($Carpeta, $Controladores, 'Index.php');
+							
+							//Validamos si existe el controlador correspondiente
+							if(file_exists($Archivo))
+							{
+								//Incluimos el controlador correspondiente
+								require $Archivo;
+								
+								//Instanciamos y procesamos los procedimientos correspondientes
+								$Controlador = new Index;
+								$Controlador->CargarModelo('Index');
+								$Controlador->Index();
+							}
+							else
+							{
+								//Indicamos el error de no existencia de controlador Index
+								require __SysNeuralFileRootNeuralMensajesError__.'NoIndex.php';
+							}
 						}
 					}
 					else
 					{
-						//Generamos el require para incluir el controlador correspondiente
-						require SysMisNeural::GenerarRutasArchivoAplicacion($Carpeta, $Controladores, 'Index.php');
-						$Controlador = new Index;
-						$Controlador->CargarModelo('Index');
-						$Controlador->Index();
+						//Generamos un Mensaje de Error de problema de la aplicacion configurada
+						require __SysNeuralFileRootNeuralMensajesError__.'AplicacionNoConfigurada.php';
 					}
 				}
 				else
 				{
-					$this->ErrorAplicacion();
+					//Generamos error 404
+					require __SysNeuralFileRootNeuralMensajesError__.'404.php';
 				}
 			}
 			else
@@ -163,70 +166,24 @@
 				$Ayudas = $Array['APLICACIONES']['DEFAULT']['AYUDAS'];
 				$Controladores = $Array['APLICACIONES']['DEFAULT']['CONTROLADORES'];
 				
-				//Cargamos las Configuraciones de las ayudas y configuraciones aplicacion
-				SysMisNeural::IncluirAyudasConfiguracionesAplicacion($Carpeta, $Configuraciones, $Ayudas);
-				
-				//Generamos el require para incluir el controlador correspondiente
-				require SysMisNeural::GenerarRutasArchivoAplicacion($Carpeta, $Controladores, 'Index.php');
-				$Controlador = new Index;
-				$Controlador->CargarModelo('Index');
-				$Controlador->Index();
-			}
-		}
-		
-		public function ErrorAplicacion() {
-			
-			//Tomamos la variable del Mod_Rewrite y validamos el url para determinar el path correspondiente
-			$Url = SysMisNeural::LeerURLModReWrite();
-			
-			//Leemos el archivo de configuracion de accesos y lo convertimos en un array
-			$Array = SysMisNeural::CargarArchivoYAMLAplicacion('Configuracion/ConfiguracionAcceso.yaml');
-			
-			if(!empty($Url[0]))
-			{
-				
-				if(array_key_exists(mb_strtoupper($Url[0]), $Array['APLICACIONES']))
+				//Validamos que la aplicacion se encuentre configurada y exista la carpeta de la aplicacion
+				if(is_dir(__SysNeuralFileRootAplicacion__.$Carpeta))
 				{
-					//Generamos las rutas de accesos
-					$Carpeta = $Array['APLICACIONES'][mb_strtoupper($Url[0])]['CARPETA'];
-					$Configuraciones = $Array['APLICACIONES'][mb_strtoupper($Url[0])]['CONFIGURACION'];
-					$Ayudas = $Array['APLICACIONES'][mb_strtoupper($Url[0])]['AYUDAS'];
-					$Controladores = $Array['APLICACIONES'][mb_strtoupper($Url[0])]['CONTROLADORES'];
+					//Cargamos las Configuraciones de las ayudas y configuraciones aplicacion
+					SysMisNeural::IncluirAyudasConfiguracionesAplicacion($Carpeta, $Configuraciones, $Ayudas);
 					
 					//Generamos el require para incluir el controlador correspondiente
-					require SysMisNeural::GenerarRutasArchivoAplicacion($Carpeta, $Controladores, 'Error.php');
-					$Controlador = new Error;
-					$Controlador->CargarModelo('Error');
-					$Controlador->Index();
-				}
-				else 
-				{
-					//Generamos las rutas de accesos
-					$Carpeta = $Array['APLICACIONES']['DEFAULT']['CARPETA'];
-					$Configuraciones = $Array['APLICACIONES']['DEFAULT']['CONFIGURACION'];
-					$Ayudas = $Array['APLICACIONES']['DEFAULT']['AYUDAS'];
-					$Controladores = $Array['APLICACIONES']['DEFAULT']['CONTROLADORES'];
+					require SysMisNeural::GenerarRutasArchivoAplicacion($Carpeta, $Controladores, 'Index.php');
 					
-					//Generamos el require para incluir el controlador correspondiente
-					require SysMisNeural::GenerarRutasArchivoAplicacion($Carpeta, $Controladores, 'Error.php');
-					$Controlador = new Error;
-					$Controlador->CargarModelo('Error');
+					//Instanciamos y procesamos los procedimientos correspondientes
+					$Controlador = new Index;
+					$Controlador->CargarModelo('Index');
 					$Controlador->Index();
 				}
-			}
-			else
-			{
-				//Generamos las rutas de accesos
-				$Carpeta = $Array['APLICACIONES']['DEFAULT']['CARPETA'];
-				$Configuraciones = $Array['APLICACIONES']['DEFAULT']['CONFIGURACION'];
-				$Ayudas = $Array['APLICACIONES']['DEFAULT']['AYUDAS'];
-				$Controladores = $Array['APLICACIONES']['DEFAULT']['CONTROLADORES'];
-				
-				//Generamos el require para incluir el controlador correspondiente
-				require SysMisNeural::GenerarRutasArchivoAplicacion($Carpeta, $Controladores, 'Error.php');
-				$Controlador = new Error;
-				$Controlador->CargarModelo('Error');
-				$Controlador->Index();
+				else
+				{
+					require __SysNeuralFileRootNeuralMensajesError__.'AplicacionNoConfigurada.php';
+				}
 			}
 		}
 	}
