@@ -160,6 +160,31 @@
 			}
 		}
 		
+		/**
+		 * NeuralJQueryAjax::CargarContenidoAutomaticoIntervaloTiempo($IDCargar = false, $URL = false, $Tiempo = 300, $Impresion = 0);
+		 * 
+		 * Cargar dinamicamente el contenido en una etiqueta
+		 * @param $IDCargar: ID de la etiqueta donde se cargara la informacion
+		 * @param $URL: direccion del contenido correspondiente
+		 * @param $Tiempo: Valor por defecto 300 Segundos (5 Min), valor en segundos de la duracion de la recarga de la etiqueta correspondiente
+		 * @param $Impresion: valor por defecto 0 para utilizar con el administrador de scripts
+		 * 
+		 * */
+		public static function CargarContenidoAutomaticoIntervaloTiempo($IDCargar = false, $URL = false, $Tiempo = 300, $Impresion = 0) {
+			
+			if($Impresion == 0)
+			{
+				return array(
+						'JS' => array('JQUERY'), 
+						'SCRIPT' => self::Constructor('CargarContenidoAutomaticoIntervaloTiempo', array('IDCargar' => $IDCargar, 'URL' => $URL, 'Tiempo' => $Tiempo))
+					);
+			}
+			else
+			{
+				
+			}
+		}
+		
 		private function Constructor($Tipo, $Array) {
 			
 			if($Tipo == 'SelectCargarPeticionGET')
@@ -246,6 +271,18 @@
 				$Script = '<script type="text/javascript">'."\n";
 				$Script .= "\t".'$(document).ready(function(){'."\n\t\t";
 				$Script .= '$("#'.$Array['IDCargar'].'").load(\''.$Array['URL'].'\');'."\n\t";
+				$Script .= '});'."\n";
+				$Script .= '</script>'."\n";
+				
+				return $Script;
+			}
+			elseif($Tipo == 'CargarContenidoAutomaticoIntervaloTiempo')
+			{
+				$Script = '<script type="text/javascript">'."\n";
+				$Script .= "\t".'$(document).ready(function(){'."\n\t\t";
+				$Script .= 'var refreshId = setInterval(function() {'."\n\t\t\t";
+				$Script .= '$("#'.$Array['IDCargar'].'").load(\''.$Array['URL'].'\');'."\n\t\t";
+				$Script .= '}, '.$Array['Tiempo'].'000);'."\n\t";
 				$Script .= '});'."\n";
 				$Script .= '</script>'."\n";
 				
