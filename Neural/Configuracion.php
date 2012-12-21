@@ -62,10 +62,20 @@
 	  * Se puede reemplazar por la direccion fisica
 	  * 
 	  * @example Windows [C:\www\htdocs\Neural\Librerias\]
-	  * @example Linux [/opt/lampp/htdocs/Neural/Librerias]
+	  * @example Linux [/opt/lampp/htdocs/Neural/Librerias/]
 	  * 
 	  * */
 	  define('__SysNeuralFileRootNeuralLibrerias__', dirname(__DIR__).'/Neural/Librerias/');
+	  
+	  /**
+	  * Ruta de Acceso a los archivos Planos de Mensajes de Error
+	  * Se puede reemplazar por la direccion fisica
+	  * 
+	  * @example Windows [C:\www\htdocs\Neural\MensajesError\]
+	  * @example Linux [/opt/lampp/htdocs/Neural/MensajesError/]
+	  * 
+	  * */
+	  define('__SysNeuralFileRootNeuralMensajesError__', dirname(__DIR__).'/Neural/MensajesError/');
 	  
 	  /**
 	  * Sistema de Cache simple para procesos del CORE 
