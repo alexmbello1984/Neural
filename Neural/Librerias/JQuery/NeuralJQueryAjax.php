@@ -70,6 +70,31 @@
 		}
 		
 		/**
+		 * NeuralJQueryAjax::LinkCargarPagina($IDLink = false, $IDMostrar = false, $URL, $Impresion = 0);
+		 * 
+		 * Carga la url correspondiente a traves de los datos de la etiqueta <a></a>
+		 * @param $IDLink: ID del link que se utilizara como iniciador de envio de datos
+		 * @param $IDMostrar: ID del div donde se mostrara la informacion
+		 * @param $URL: direccion donde se realizara el proceso de validacion
+		 * @param $Impresion: valor por defecto 0 para utilizar con el administrador de scripts
+		 * 
+		 * */
+		public static function LinkCargarPagina($IDLink = false, $IDMostrar = false, $URL, $Impresion = 0) {
+			
+			if($Impresion==0)
+			{
+				return array(
+					'JS' => array('JQUERY'), 
+					'SCRIPT' => self::Constructor('LinkCargarPagina', array('IDLink' => $IDLink, 'IDMostrar' => $IDMostrar, 'URL' => $URL))
+				);
+			}
+			elseif($Impresion==1)
+			{
+				
+			}
+		}
+		
+		/**
 		 * NeuralJQueryAjax::LinkEnviarPeticionPOST($IDLink, $IDMostrar, $URL, $DatosEnviados = false, $Impresion = 0);
 		 * 
 		 * Envia datos post a traves de un link y los carga en el div id para mostrar
@@ -283,6 +308,19 @@
 				$Script .= 'var refreshId = setInterval(function() {'."\n\t\t\t";
 				$Script .= '$("#'.$Array['IDCargar'].'").load(\''.$Array['URL'].'\');'."\n\t\t";
 				$Script .= '}, '.$Array['Tiempo'].'000);'."\n\t";
+				$Script .= '});'."\n";
+				$Script .= '</script>'."\n";
+				
+				return $Script;
+			}
+			elseif($Tipo == 'LinkCargarPagina')
+			{
+				$Script = '<script type="text/javascript">'."\n";
+				$Script .= "\t".'$(document).ready(function(){'."\n\t\t";
+				$Script .= '$("#'.$Array['IDLink'].'").click(function(evento){'."\n\t\t\t";
+				$Script .= 'evento.preventDefault();'."\n\t\t\t";
+				$Script .= '$("#'.$Array['IDMostrar'].'").load("'.$Array['URL'].'");'."\n\t\t";
+				$Script .= '});'."\n\t";
 				$Script .= '});'."\n";
 				$Script .= '</script>'."\n";
 				
