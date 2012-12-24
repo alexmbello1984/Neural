@@ -10,8 +10,10 @@
 				<br /><br />
 				<p>
 					<strong>Encriptación de Datos</strong>
+					<br />
+					<code>$Aplicacion</code>: Aplicación donde se tomara el la llave de encriptación.
 					<div class="bs-docs-example">
-						<pre class="prettyprint linenums"><ol class="linenums"><li class="L0">NeuralEncriptacion::EncriptarDatos('Cadena de Texto a Encriptar')</li></ol></pre>
+						<pre class="prettyprint linenums"><ol class="linenums"><li class="L0">NeuralEncriptacion::EncriptarDatos('Cadena de Texto a Encriptar', $Aplicacion = 'DEFAULT');</li></ol></pre>
 					</div>
 				</p>
 					
@@ -19,8 +21,10 @@
 				
 				<p>
 					<strong>Des-Encriptación de Datos</strong>
+					<br />
+					<code>$Aplicacion</code>: Aplicación donde se tomara el la llave de encriptación.
 					<div class="bs-docs-example">
-						<pre class="prettyprint linenums"><ol class="linenums"><li class="L0">NeuralEncriptacion::DesencriptarDatos('Cadena de Texto a Encriptada')</li></ol></pre>
+						<pre class="prettyprint linenums"><ol class="linenums"><li class="L0">NeuralEncriptacion::DesencriptarDatos('Cadena de Texto a Encriptada', $Aplicacion = 'DEFAULT')</li></ol></pre>
 					</div>
 				</p>
 				<p>La encriptación de datos se realiza con un resultado con caracteres especiales que el navegador no puede traducir, para esto y poder almacenar la información en bases de datos se codifica en <code>base64</code>.</p>
