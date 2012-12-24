@@ -22,15 +22,13 @@
 		 * @param $Cadena: Cadena para Encriptacion
 		 * 
 		 **/
-		public static function EncriptarDatos($Cadena) {
+		public static function EncriptarDatos($Cadena, $Aplicacion = 'DEFAULT') {
 			
-			$Aplicacion = SysMisNeural::LeerURLModReWrite();
 			$Acceso = SysMisNeural::CargarArchivoYAMLAplicacion('Configuracion/ConfiguracionAcceso.yaml');
-			$ValidacionAplicacion = (isset($Aplicacion[0])) ? $Aplicacion[0] : 'DEFAULT';
 			
-			if(array_key_exists($ValidacionAplicacion, $Acceso['APLICACIONES']))
+			if(array_key_exists($Aplicacion, $Acceso['APLICACIONES']))
 			{
-				$Clave = $Acceso['APLICACIONES'][$ValidacionAplicacion]['LLAVE_ENCRIPTACION'];
+				$Clave = $Acceso['APLICACIONES'][$Aplicacion]['LLAVE_ENCRIPTACION'];
 				$Cifrado = MCRYPT_RIJNDAEL_256;
 				$Modo = MCRYPT_MODE_ECB;
 				
@@ -51,16 +49,14 @@
 		 * @param $Cadena: Cadena para Des-Encriptacion
 		 * 
 		 **/
-		public static function DesencriptarDatos($Cadena) {
+		public static function DesencriptarDatos($Cadena, $Aplicacion = 'DEFAULT') {
 			
-			$Aplicacion = SysMisNeural::LeerURLModReWrite();
 			$Acceso = SysMisNeural::CargarArchivoYAMLAplicacion('Configuracion/ConfiguracionAcceso.yaml');
-			$ValidacionAplicacion = (isset($Aplicacion[0])) ? $Aplicacion[0] : 'DEFAULT';
 			
-			if(array_key_exists($ValidacionAplicacion, $Acceso['APLICACIONES']))
+			if(array_key_exists($Aplicacion, $Acceso['APLICACIONES']))
 			{
 				$Desencriptar_Cadena = base64_decode($Cadena);
-				$Clave = $Acceso['APLICACIONES'][$ValidacionAplicacion]['LLAVE_ENCRIPTACION'];
+				$Clave = $Acceso['APLICACIONES'][$Aplicacion]['LLAVE_ENCRIPTACION'];
 				$Cifrado = MCRYPT_RIJNDAEL_256;
 				$Modo = MCRYPT_MODE_ECB;
 				
