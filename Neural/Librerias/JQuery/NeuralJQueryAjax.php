@@ -210,6 +210,62 @@
 			}
 		}
 		
+		/**
+		 * NeuralJQueryAjax::CargarContenidoAutomaticoPeticionPOST($IDCargar = false, $URL = false, $DatosEnviados = false, $Impresion = 0);
+		 * 
+		 * Cargar dinamicamente el contenido en una etiqueta
+		 * @param $IDCargar: ID de la etiqueta donde se cargara la informacion
+		 * @param $URL: direccion del contenido correspondiente
+		 * @param $DatosEnviados: Array asociativo donde se envian los datos correspondientes
+		 * @example array('usuario' => 'admin', 'estado' => 'activo'):
+		 * @param $Impresion: valor por defecto 0 para utilizar con el administrador de scripts
+		 * 
+		 * */
+		public static function CargarContenidoAutomaticoPeticionPOST($IDCargar = false, $URL = false, $DatosEnviados = false, $Impresion = 0) {
+			
+			if($Impresion==0)
+			{
+				if(is_array($DatosEnviados))
+				{
+					return array(
+						'JS' => array('JQUERY'), 
+						'SCRIPT' => self::Constructor('CargarContenidoAutomaticoPeticionPOST', array('IDCargar' => $IDCargar, 'URL' => $URL, 'DatosEnviados' => $DatosEnviados))
+					);
+				}
+			}
+			elseif($Impresion==1)
+			{
+				
+			}
+		}
+		
+		/**
+		 * NeuralJQueryAjax::CargarContenidoAutomaticoIntervaloTiempoPeticionPOST($IDCargar = false, $URL = false, $DatosEnviados = false, $Tiempo = 300, $Impresion = 0);
+		 * 
+		 * Cargar dinamicamente el contenido en una etiqueta
+		 * @param $IDCargar: ID de la etiqueta donde se cargara la informacion
+		 * @param $URL: direccion del contenido correspondiente
+		 * @param $DatosEnviados: Array asociativo donde se envian los datos correspondientes
+		 * @example array('usuario' => 'admin', 'estado' => 'activo'):
+		 * @param $Tiempo: Valor por defecto 300 Segundos (5 Min), valor en segundos de la duracion de la recarga de la etiqueta correspondiente
+		 * @param $Impresion: valor por defecto 0 para utilizar con el administrador de scripts
+		 * 
+		 * */
+		public static function CargarContenidoAutomaticoIntervaloTiempoPeticionPOST($IDCargar = false, $URL = false, $DatosEnviados = false, $Tiempo = 300, $Impresion = 0) {
+			
+			if($Impresion == 0)
+			{
+				return array(
+						'JS' => array('JQUERY'), 
+						'SCRIPT' => self::Constructor('CargarContenidoAutomaticoIntervaloTiempoPeticionPOST', array('IDCargar' => $IDCargar, 'URL' => $URL, 'Tiempo' => $Tiempo, 'DatosEnviados' => $DatosEnviados))
+					);
+			}
+			else
+			{
+				
+			}
+		}
+
 		private function Constructor($Tipo, $Array) {
 			
 			if($Tipo == 'SelectCargarPeticionGET')
@@ -321,6 +377,28 @@
 				$Script .= 'evento.preventDefault();'."\n\t\t\t";
 				$Script .= '$("#'.$Array['IDMostrar'].'").load("'.$Array['URL'].'");'."\n\t\t";
 				$Script .= '});'."\n\t";
+				$Script .= '});'."\n";
+				$Script .= '</script>'."\n";
+				
+				return $Script;
+			}
+			elseif($Tipo == 'CargarContenidoAutomaticoPeticionPOST')
+			{
+				$Script = '<script type="text/javascript">'."\n";
+				$Script .= "\t".'$(document).ready(function(){'."\n\t\t";
+				$Script .= '$("#'.$Array['IDCargar'].'").load(\''.$Array['URL'].'\', {'.self::OrganizarArrayLinkPost($Array['DatosEnviados']).'});'."\n\t";
+				$Script .= '});'."\n";
+				$Script .= '</script>'."\n";
+				
+				return $Script;
+			}
+			elseif($Tipo == 'CargarContenidoAutomaticoIntervaloTiempoPeticionPOST')
+			{
+				$Script = '<script type="text/javascript">'."\n";
+				$Script .= "\t".'$(document).ready(function(){'."\n\t\t";
+				$Script .= 'var refreshId = setInterval(function() {'."\n\t\t\t";
+				$Script .= '$("#'.$Array['IDCargar'].'").load(\''.$Array['URL'].'\', {'.self::OrganizarArrayLinkPost($Array['DatosEnviados']).'});'."\n\t\t";
+				$Script .= '}, '.$Array['Tiempo'].'000);'."\n\t";
 				$Script .= '});'."\n";
 				$Script .= '</script>'."\n";
 				

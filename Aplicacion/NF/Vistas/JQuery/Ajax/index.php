@@ -67,6 +67,18 @@
 					<pre class="prettyprint linenums"><ol class="linenums"><li class="L0">NeuralJQueryAjax::CargarContenidoAutomatico($IDCargar = false, $URL = false, $Impresion = 0);</li></ol></pre>
 				</p>
 				
+				<br />
+				<p>
+					<strong>Ajax Cargar Contenido Dinamicamente en Etiqueta HTML Enviando Petición POST</strong>
+					<p>Genera una peticion ajax para regresar datos segun donde sean aplicados</p>
+					<code>$IDCargar</code>: ID de la Etiqueta de referencia donde se cargara el contenido.<br />
+					<code>$URL</code>: Dirección donde provienen los datos.<br />
+					<code>$DatosEnviados</code>: array asociativo donde se incluiran los datos a enviar por la petición AJAX <code>array('Usuario' => 'admin', 'Permisos' => 'Tipo_2');</code>.<br /> 
+					<code>$Impresion</code>: valor por defecto 0 para ser utilizado con el administrador de scripts.<br /><br />
+					<pre class="prettyprint linenums"><ol class="linenums"><li class="L0">NeuralJQueryAjax::CargarContenidoAutomaticoPeticionPOST($IDCargar = false, $URL = false, $DatosEnviados = false, $Impresion = 0);</li></ol></pre>
+				</p>
+				
+				<br />
 				<p>
 					<strong>Ajax Cargar Contenido Dinamicamente en Etiqueta HTML por Intervalo de Tiempo</strong>
 					<p>Genera una peticion ajax para regresar datos segun donde sean aplicados</p>
@@ -75,6 +87,18 @@
 					<code>$Tiempo</code>: Valor por Defecto 300 Segundos (5 Minutos), cargara la información en este periodo de tiempo.<br />
 					<code>$Impresion</code>: valor por defecto 0 para ser utilizado con el administrador de scripts.<br /><br />
 					<pre class="prettyprint linenums"><ol class="linenums"><li class="L0">NeuralJQueryAjax::CargarContenidoAutomaticoIntervaloTiempo($IDCargar = false, $URL = false, $Tiempo = 300, $Impresion = 0);</li></ol></pre>
+				</p>
+				
+				<br />
+				<p>
+					<strong>Ajax Cargar Contenido Dinamicamente en Etiqueta HTML por Intervalo de Tiempo Enviando Petición POST</strong>
+					<p>Genera una peticion ajax para regresar datos segun donde sean aplicados</p>
+					<code>$IDCargar</code>: ID de la Etiqueta de referencia donde se cargara el contenido.<br />
+					<code>$URL</code>: Dirección donde provienen los datos.<br />
+					<code>$DatosEnviados</code>: array asociativo donde se incluiran los datos a enviar por la petición AJAX <code>array('Usuario' => 'admin', 'Permisos' => 'Tipo_2');</code>.<br />
+					<code>$Tiempo</code>: Valor por Defecto 300 Segundos (5 Minutos), cargara la información en este periodo de tiempo.<br />
+					<code>$Impresion</code>: valor por defecto 0 para ser utilizado con el administrador de scripts.<br /><br />
+					<pre class="prettyprint linenums"><ol class="linenums"><li class="L0">NeuralJQueryAjax::CargarContenidoAutomaticoIntervaloTiempoPeticionPOST($IDCargar = false, $URL = false, $DatosEnviados = false, $Tiempo = 300, $Impresion = 0);</li></ol></pre>
 				</p>
 				
 			</section>
