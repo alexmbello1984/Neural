@@ -88,7 +88,7 @@
 												//Cargamos el Controlador correspondiente
 												$Controlador = new $Url[1];
 												$Controlador->CargarModelo($Url[1]);
-												$Controlador->$Url[2]();
+												$Controlador->$Url[2](false);
 											}
 										}
 										else
@@ -105,7 +105,7 @@
 										//No existe el metodo generamos el error correspondiente
 										$Controlador = new Error;
 										$Controlador->CargarModelo('Error');
-										$Controlador->Index();
+										$Controlador->Index(false);
 									}
 									
 								}
@@ -114,7 +114,7 @@
 									//Instanciamos y procesamos los procedimientos correspondientes
 									$Controlador = new $Url[1];
 									$Controlador->CargarModelo('Index');
-									$Controlador->Index();
+									$Controlador->Index(false);
 								}
 							}
 							else
@@ -137,7 +137,7 @@
 								//Instanciamos y procesamos los procedimientos correspondientes
 								$Controlador = new Index;
 								$Controlador->CargarModelo('Index');
-								$Controlador->Index();
+								$Controlador->Index(false);
 							}
 							else
 							{
@@ -178,7 +178,7 @@
 					//Instanciamos y procesamos los procedimientos correspondientes
 					$Controlador = new Index;
 					$Controlador->CargarModelo('Index');
-					$Controlador->Index();
+					$Controlador->Index(false);
 				}
 				else
 				{
