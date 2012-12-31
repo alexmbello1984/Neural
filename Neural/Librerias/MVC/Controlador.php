@@ -38,7 +38,7 @@
 					$Modelos = $Array['APLICACIONES'][mb_strtoupper($Url[0])]['MODELOS'];
 					
 					//Generamos el Nombre del Modelo y la Ruta correspondiente
-					$Archivo = SysMisNeural::GenerarNombreModeloRuta($Carpeta, $Modelos, $Nombre);
+					$Archivo = SysMisNeural::GenerarNombreModeloRuta($Carpeta, $Modelos, $Url[1]);
 					
 					//validamos si existe el archivo, si existe lo cargamos de lo contrario lo omitimos
 					if(file_exists($Archivo['Archivo']))
