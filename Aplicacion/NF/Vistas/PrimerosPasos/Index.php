@@ -5,7 +5,7 @@
 				<p class="lead"><strong>Neural Framework</strong> es un marco de trabajo de apliaciones en <strong>PHP</strong> separando las consultas a las bases de datos <strong>(Modelo)</strong>, la presentacion de los resultados <strong>(Vista)</strong> y la logica del Negocio <strong>(Controlador)</strong></p>
 				<p>Para iniciar tu nueva aplicacion debes crear en la carpeta <strong>Aplicacion</strong> del framework, hay un archivo ZIP que tiene la estructura correspondiente recuerda Nombrar la Carpeta de tu aplicacion con la notacion <a href="http://es.wikipedia.org/wiki/CamelCase" target="__blank"">UpperCamelCase</a> y realizar la configuracion basica (Ver tambien las <a href="<?php echo NeuralRutasApp::RutaURL('Configuracion'); ?>">Configuraciones</a>)</p>
 			</section>
-			
+			<iframe width="640" height="360" src="http://www.youtube.com/embed/sMioFkMLHE8?feature=player_detailpage" frameborder="0" allowfullscreen></iframe>
 			<section id="Controlador">
 				<div class="page-header">
 					<h1>Controladores</h1>
