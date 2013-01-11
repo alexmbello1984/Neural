@@ -29,7 +29,7 @@
 		public static function ObtenerConexionBase($Aplicacion = 'DEFAULT') {
 			
 			//Leemos el archivo de configuraciones de bases de datos
-			$DatosBaseDatos = SysMisNeural::CargarArchivoYAMLAplicacion('Configuracion\BasesDatos.yaml');
+			$DatosBaseDatos = SysMisNeural::CargarArchivoYAMLAplicacion('Configuracion/BasesDatos.yaml');
 			
 			//Validamos si existe la base de datos
 			if(array_key_exists(mb_strtoupper($Aplicacion), $DatosBaseDatos['BASEDATOS']))
@@ -47,7 +47,7 @@
 				if(!empty($Url[0]))
 				{
 					//Leemos el archivo de configuracion de accesos y lo convertimos en un array
-					$AplicacionActiva = SysMisNeural::CargarArchivoYAMLAplicacion('Configuracion\ConfiguracionAcceso.yaml');
+					$AplicacionActiva = SysMisNeural::CargarArchivoYAMLAplicacion('Configuracion/ConfiguracionAcceso.yaml');
 					
 					//Validamos si se encuentra la aplicacion correspondiente
 					if(array_key_exists(mb_strtoupper($Url[0]), $AplicacionActiva['APLICACIONES']))
@@ -76,7 +76,7 @@
 				}
 			}
 			
-			require_once __SysNeuralFileRootVendors__.'Doctrine\Common\ClassLoader.php';
+			require_once __SysNeuralFileRootVendors__.'Doctrine/Common/ClassLoader.php';
 			
         	$classLoader = new \Doctrine\Common\ClassLoader('Doctrine');
         	$classLoader->register();
