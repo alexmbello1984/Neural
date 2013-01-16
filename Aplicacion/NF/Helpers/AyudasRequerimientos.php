@@ -13,7 +13,7 @@
 			}
 		}
 		
-		public function ValidarCtypeAlpha() {
+		public static function ValidarCtypeAlpha() {
 			
 			if(function_exists('ctype_alpha')) {
 				
@@ -48,7 +48,7 @@
 		
 		
 		
-		public function ValidarPDO() {
+		public static function ValidarPDO() {
 			
 			if(extension_loaded('PDO')) {
 				
