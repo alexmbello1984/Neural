@@ -2,7 +2,7 @@
 				<div class="page-header">
 					<h1>Neural Framework</h1>
 				</div>
-				<p class="lead"><strong>Neural Framework</strong> es un marco de trabajo de apliaciones en <strong>PHP</strong> separando la logica de negocio, consultas a bases de datos y la presentacion de los resultados.</p>
+				<p class="lead"><strong>Neural Framework</strong> es un marco de trabajo de aplicaciones en <strong>PHP</strong> separando la logica de negocio, consultas a bases de datos y la presentacion de los resultados.</p>
 				
 				<div class="row-fluid">
 					<div class="span6">

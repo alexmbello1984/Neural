@@ -48,7 +48,7 @@
 			}
 		}
 		
-		private function ConstructorScript($Script, $Aplicacion, $Persistencia = false) {
+		private static function ConstructorScript($Script, $Aplicacion, $Persistencia = false) {
 			
 			if(is_array($Persistencia))
 			{
@@ -136,7 +136,7 @@
 		}
 		
 		
-		private function OrganizarArray($Array) {
+		private static function OrganizarArray($Array) {
 			
 			if(is_array($Array))
 			{
@@ -177,7 +177,7 @@
 			}
 		}
 
-		private function OrganizarDatosScript($Script) {
+		private static function OrganizarDatosScript($Script) {
 			
 			$Cantidad = count($Script);
 			for ($i=0; $i<$Cantidad; $i++)
@@ -210,7 +210,7 @@
 			return $Datos;
 		}
 		
-		private function ConstructorPersistente($Persistencia, $Librerias) {
+		private static function ConstructorPersistente($Persistencia, $Librerias) {
 			
 			foreach ($Persistencia AS $Llave => $Valor)
 			{
@@ -248,5 +248,4 @@
 			
 			return implode("\n", $Datos);
 		}
-		
 	}

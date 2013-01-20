@@ -266,7 +266,7 @@
 			}
 		}
 
-		private function Constructor($Tipo, $Array) {
+		private static function Constructor($Tipo, $Array) {
 			
 			if($Tipo == 'SelectCargarPeticionGET')
 			{
@@ -406,7 +406,7 @@
 			}
 		}
 		
-		private function ConstructorLoader($Aplicacion) {
+		private static function ConstructorLoader($Aplicacion) {
 			
 			$ArrayApp = SysMisNeural::CargarArchivoYAMLAplicacion('Configuracion/ConfiguracionScripts.yaml');
 			$ClassContenedor = ($ArrayApp[$Aplicacion]['LOADER']['CLASS']['CONTENEDOR']['CLASS'] == 'DESACTIVADO') ? '': ' class="'.$ArrayApp[$Aplicacion]['LOADER']['CLASS']['CONTENEDOR']['CLASS'].'"';
@@ -420,7 +420,7 @@
 			unset($Aplicacion, $ArrayApp, $ClassContenedor, $ClassImagen, $StyleContenedor, $StyleImagen);
 		}
 		
-		private function OrganizarArrayLinkPost($Array) {
+		private static function OrganizarArrayLinkPost($Array) {
 			
 			foreach ($Array AS $Llave => $Valor)
 			{
