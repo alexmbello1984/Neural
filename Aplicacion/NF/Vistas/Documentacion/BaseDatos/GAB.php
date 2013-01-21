@@ -65,7 +65,7 @@
 				
 				<h4>Ejemplo de Actualizacion</h4>
 				<div class="bs-docs-example">
-					<pre class="prettyprint linenums"><ol class="linenums"><li class="L0">$SQL = new NeuralBDGab;</li><li class="L1">$SQL->SeleccionarDestino('MI_APLICACION', 'tabla_1');</li><li class="L2">$SQL->AgregarSentencia('Columna_1', 'Valor 1');</li><li class="L3">$SQL->AgregarSentencia('Columna_2', 'Valor 2');</li><li class="L4">$SQL->AgregarSentencia('Columna_3', 'Valor 3');</li><li class="L4">$SQL->AgregarCondicion('Columna_4', 'Valor 4');</li><li class="L5">$SQL->InsertarDatos();</li></ol></pre>
+					<pre class="prettyprint linenums"><ol class="linenums"><li class="L0">$SQL = new NeuralBDGab;</li><li class="L1">$SQL->SeleccionarDestino('MI_APLICACION', 'tabla_1');</li><li class="L2">$SQL->AgregarSentencia('Columna_1', 'Valor 1');</li><li class="L3">$SQL->AgregarSentencia('Columna_2', 'Valor 2');</li><li class="L4">$SQL->AgregarSentencia('Columna_3', 'Valor 3');</li><li class="L4">$SQL->AgregarCondicion('Columna_4', 'Valor 4');</li><li class="L5">$SQL->ActualizarDatos();</li></ol></pre>
 				</div>
 				
 			
